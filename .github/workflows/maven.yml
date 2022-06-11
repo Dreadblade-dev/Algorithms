@@ -1,4 +1,4 @@
-name: Java CI
+name: Algorithms
 
 on:
   [push, pull_request]
