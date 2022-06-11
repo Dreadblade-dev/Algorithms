@@ -14,4 +14,14 @@ public class TestUtils {
 
         return array;
     }
+
+    public static Integer[] sortedArray(int size) {
+        Integer[] array = new Integer[size];
+
+        for (int i = 0; i < size; i++) {
+            array[i] = size / 2 - i;
+        }
+
+        return array;
+    }
 }

@@ -3,12 +3,26 @@ package ru.dreadblade.algorithms.sort;
 public class BubbleSortAlgorithm implements SortingAlgorithm {
     @Override
     public <T extends Comparable<T>> void sort(T[] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                if (array[i].compareTo(array[j]) < 0) {
-                    swap(array, i, j);
+        int i = 0;
+        int n = array.length;
+
+        boolean needIteration = true;
+
+        while (i < n - 1 && needIteration) {
+            needIteration = false;
+
+            for (int j = 1; j < n - i; j++) {
+                if (array[j].compareTo(array[j - 1]) < 0) {
+                    swap(array, j, j - 1);
+                    needIteration = true;
                 }
             }
+
+            if (!needIteration) {
+                break;
+            }
+
+            i++;
         }
     }
 
@@ -18,3 +32,4 @@ public class BubbleSortAlgorithm implements SortingAlgorithm {
         array[secondIndex] = temp;
     }
 }
+
