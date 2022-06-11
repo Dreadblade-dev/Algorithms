@@ -7,6 +7,10 @@ public interface SortingAlgorithm {
         new BubbleSortAlgorithm().sort(array);
     }
 
+    static <T extends Comparable<T>> void insertionSort(T[] array) {
+        new InsertionSortAlgorithm().sort(array);
+    }
+
     static <T extends Comparable<T>> void selectionSort(T[] array) {
         new SelectionSortAlgorithm().sort(array);
     }
