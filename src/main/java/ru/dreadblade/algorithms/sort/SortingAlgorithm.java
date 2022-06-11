@@ -6,4 +6,8 @@ public interface SortingAlgorithm {
     static <T extends Comparable<T>> void bubbleSort(T[] array) {
         new BubbleSortAlgorithm().sort(array);
     }
+
+    static <T extends Comparable<T>> void selectionSort(T[] array) {
+        new SelectionSortAlgorithm().sort(array);
+    }
 }
