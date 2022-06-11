@@ -52,4 +52,15 @@ public class BubbleSortAlgorithmTest {
             assertThat(array[i]).isLessThanOrEqualTo(array[i + 1]);
         }
     }
+
+    @Test
+    public void bubbleSort_bothPositiveAndNegativeValues_sortedArray_isCorrect() {
+        Integer[] array = TestUtils.sortedArray(1024);
+
+        SortingAlgorithm.bubbleSort(array);
+
+        for (int i = 0; i < array.length - 1; i++) {
+            assertThat(array[i]).isLessThanOrEqualTo(array[i + 1]);
+        }
+    }
 }
