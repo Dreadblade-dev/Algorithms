@@ -1,9 +1,7 @@
 package ru.dreadblade.algorithms.datastructure.list;
 
 import ru.dreadblade.algorithms.datastructure.util.IndexOutOfBoundsException;
-import ru.dreadblade.algorithms.datastructure.util.Iterator;
-import ru.dreadblade.algorithms.datastructure.util.MessageUtils;
-import ru.dreadblade.algorithms.datastructure.util.NoSuchElementException;
+import ru.dreadblade.algorithms.datastructure.util.*;
 
 public class SinglyLinkedList<T> implements List<T> {
     private Node<T> head;
@@ -210,31 +208,18 @@ public class SinglyLinkedList<T> implements List<T> {
         return currentNode;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("[");
-
-        for (int i = 0; i < size; i++) {
-            stringBuilder.append(get(i));
-
-            if (i < size - 1) {
-                stringBuilder.append(", ");
-            }
-        }
-
-        return stringBuilder.append("]").toString();
-    }
-
     private class SinglyLinkedListIterator implements Iterator<T> {
         private Node<T> currentNode;
+        private int currentIndex;
 
         public SinglyLinkedListIterator(int index) {
             currentNode = (index != size) ? getNode(index) : null;
+            currentIndex = index;
         }
 
         @Override
         public boolean hasNext() {
-            return currentNode != null;
+            return currentIndex < size;
         }
 
         @Override
@@ -245,8 +230,14 @@ public class SinglyLinkedList<T> implements List<T> {
 
             T data = currentNode.data;
             currentNode = currentNode.next;
+            currentIndex++;
 
             return data;
+        }
+
+        @Override
+        public void remove() {
+            SinglyLinkedList.this.remove(currentIndex - 1);
         }
     }
 
