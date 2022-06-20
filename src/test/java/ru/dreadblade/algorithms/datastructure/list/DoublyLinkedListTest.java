@@ -131,8 +131,8 @@ public class DoublyLinkedListTest {
         for (int i = 0; i < expectedSize; i++) {
             doublyLinkedList.add(i * i);
         }
-        Iterator<Integer> iterator = doublyLinkedList.listIterator();
 
+        Iterator<Integer> iterator = doublyLinkedList.listIterator();
 
         for (int i = 0; i < expectedSize; i++) {
             int expectedElement = i * i;

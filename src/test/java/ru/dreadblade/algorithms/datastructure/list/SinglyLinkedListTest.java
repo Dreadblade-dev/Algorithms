@@ -131,8 +131,8 @@ public class SinglyLinkedListTest {
         for (int i = 0; i < expectedSize; i++) {
             singlyLinkedList.add(i * i);
         }
-        Iterator<Integer> iterator = singlyLinkedList.listIterator();
 
+        Iterator<Integer> iterator = singlyLinkedList.listIterator();
 
         for (int i = 0; i < expectedSize; i++) {
             int expectedElement = i * i;
