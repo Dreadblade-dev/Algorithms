@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import ru.dreadblade.algorithms.datastructure.util.IndexOutOfBoundsException;
 import ru.dreadblade.algorithms.datastructure.util.Iterator;
+import ru.dreadblade.algorithms.datastructure.util.MessageUtils;
 import ru.dreadblade.algorithms.datastructure.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,6 +55,113 @@ public class SinglyLinkedListTest {
         for (int i = 0; i < expectedSize; i++) {
             assertThat(singlyLinkedList.get(i)).isEqualTo(i * i);
         }
+    }
+
+    @Test
+    void singlyLinkedList_generalUsage_isCorrect() {
+        List<Integer> singlyLinkedList = new SinglyLinkedList<>();
+
+        int expectedSize = 32;
+
+        for (int i = 0; i < expectedSize; i++) {
+            singlyLinkedList.add(i * i);
+        }
+
+        assertThat(singlyLinkedList.getSize()).isEqualTo(expectedSize);
+
+        for (int i = 0; i < expectedSize; i++) {
+            int expectedElement = i * i;
+
+            assertThat(singlyLinkedList.contains(expectedElement)).isTrue();
+            assertThat(singlyLinkedList.indexOf(expectedElement)).isGreaterThanOrEqualTo(0);
+            assertThat(singlyLinkedList.get(i)).isEqualTo(expectedElement);
+        }
+
+        int count = 0;
+
+        while (!singlyLinkedList.isEmpty()) {
+            int expectedElement = count * count;
+            assertThat(singlyLinkedList.remove(0)).isEqualTo(expectedElement);
+
+            count++;
+        }
+
+        assertThat(count).isEqualTo(expectedSize);
+
+        expectedSize = 0;
+
+        assertThat(singlyLinkedList.isEmpty()).isTrue();
+        assertThat(singlyLinkedList.getSize()).isEqualTo(expectedSize);
+
+        expectedSize = 32;
+
+        for (int i = 0; i < expectedSize; i++) {
+            singlyLinkedList.add(i * i);
+        }
+
+        count = 0;
+
+        while (!singlyLinkedList.isEmpty()) {
+            Integer expectedElement = count * count;
+            Integer nextExpectedElement = (count + 1) * (count + 1);
+
+            assertThat(singlyLinkedList.remove(expectedElement)).isTrue();
+
+            assertThat(singlyLinkedList.contains(expectedElement)).isFalse();
+            assertThat(singlyLinkedList.indexOf(expectedElement)).isEqualTo(-1);
+
+            if (!singlyLinkedList.isEmpty()) {
+                assertThat(singlyLinkedList.get(0)).isEqualTo(nextExpectedElement);
+            } else {
+                assertThrows(IndexOutOfBoundsException.class, () -> singlyLinkedList.get(0), MessageUtils.getIndexOutOfBoundsExceptionMessage(0, 0));
+            }
+
+            count++;
+        }
+
+        assertThat(count).isEqualTo(expectedSize);
+
+        expectedSize = 0;
+
+        assertThat(singlyLinkedList.isEmpty()).isTrue();
+        assertThat(singlyLinkedList.getSize()).isEqualTo(expectedSize);
+
+        expectedSize = 32;
+
+        for (int i = 0; i < expectedSize; i++) {
+            singlyLinkedList.add(i * i);
+        }
+        Iterator<Integer> iterator = singlyLinkedList.listIterator();
+
+
+        for (int i = 0; i < expectedSize; i++) {
+            int expectedElement = i * i;
+
+            assertThat(iterator.hasNext()).isTrue();
+            assertThat(iterator.next()).isEqualTo(expectedElement);
+
+            assertThat(singlyLinkedList.contains(expectedElement)).isTrue();
+            assertThat(singlyLinkedList.indexOf(expectedElement)).isGreaterThanOrEqualTo(0);
+            assertThat(singlyLinkedList.get(i)).isEqualTo(expectedElement);
+        }
+
+        iterator = singlyLinkedList.listIterator();
+
+        for (int i = 0; i < expectedSize; i++) {
+            int expectedElement = i * i;
+
+            assertThat(iterator.hasNext()).isTrue();
+            assertThat(iterator.next()).isEqualTo(expectedElement);
+            iterator.remove();
+
+            assertThat(singlyLinkedList.contains(expectedElement)).isFalse();
+            assertThat(singlyLinkedList.indexOf(expectedElement)).isEqualTo(-1);
+        }
+
+        expectedSize = 0;
+
+        assertThat(singlyLinkedList.isEmpty()).isTrue();
+        assertThat(singlyLinkedList.getSize()).isEqualTo(expectedSize);
     }
 
     @DisplayName("add(int index, T element) tests")
@@ -649,21 +757,15 @@ public class SinglyLinkedListTest {
     @DisplayName("listIterator() tests")
     @Nested
     class listIteratorTest {
+        @Test
+        void singlyLinkedList_listIterator_emptyList_isCorrect() {
+            List<Integer> singlyLinkedList = new SinglyLinkedList<>();
 
-        @DisplayName("ListIterator create testing")
-        @Nested
-        class listIteratorCreateTest {
-            @Test
-            void singlyLinkedList_listIterator_emptyList_isCorrect() {
-                List<Integer> singlyLinkedList = new SinglyLinkedList<>();
+            Iterator<Integer> iterator = singlyLinkedList.listIterator();
 
-                Iterator<Integer> iterator = singlyLinkedList.listIterator();
-
-                assertThat(iterator.hasNext()).isFalse();
-                assertThrows(NoSuchElementException.class, iterator::next);
-            }
+            assertThat(iterator.hasNext()).isFalse();
+            assertThrows(NoSuchElementException.class, iterator::next);
         }
-
 
         @Test
         void singlyLinkedList_listIterator_isCorrect() {
@@ -840,10 +942,26 @@ public class SinglyLinkedListTest {
 
             assertThat(iterator.hasNext()).isFalse();
             assertThrows(NoSuchElementException.class, iterator::next);
-            
+
             assertThat(singlyLinkedList.getSize()).isEqualTo(expectedSize);
             assertThat(singlyLinkedList.contains(expectedElement)).isFalse();
             assertThrows(IndexOutOfBoundsException.class, () -> singlyLinkedList.get(beginIndex));
+        }
+
+        @Test
+        void singlyLinkedList_listIteratorRemoveAtIndex_withoutCallingNext_throwsNoSuchElementException() {
+            List<Integer> singlyLinkedList = new SinglyLinkedList<>();
+
+            int beginIndex = 0;
+            int expectedSize = 32;
+
+            for (int i = 0; i < expectedSize; i++) {
+                singlyLinkedList.add(i * i);
+            }
+
+            Iterator<Integer> iterator = singlyLinkedList.listIterator(beginIndex);
+
+            assertThrows(NoSuchElementException.class, iterator::remove);
         }
 
         @Test

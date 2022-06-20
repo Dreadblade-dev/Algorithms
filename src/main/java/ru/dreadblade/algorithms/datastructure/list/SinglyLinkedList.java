@@ -106,10 +106,14 @@ public class SinglyLinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(T element) {
+        Node<T> currentNode = head;
+
         for (int i = 0; i < size; i++) {
-            if (get(i).equals(element)) {
+            if (element.equals(currentNode.data)) {
                 return i;
             }
+
+            currentNode = currentNode.next;
         }
 
         return -1;
@@ -210,6 +214,7 @@ public class SinglyLinkedList<T> implements List<T> {
 
     private class SinglyLinkedListIterator implements Iterator<T> {
         private Node<T> currentNode;
+        private Node<T> lastReturnedNode;
         private int currentIndex;
 
         public SinglyLinkedListIterator(int index) {
@@ -228,16 +233,21 @@ public class SinglyLinkedList<T> implements List<T> {
                 throw new NoSuchElementException();
             }
 
-            T data = currentNode.data;
+            lastReturnedNode = currentNode;
             currentNode = currentNode.next;
             currentIndex++;
 
-            return data;
+            return lastReturnedNode.data;
         }
 
         @Override
         public void remove() {
+            if (lastReturnedNode == null) {
+                throw new NoSuchElementException();
+            }
+
             SinglyLinkedList.this.remove(currentIndex - 1);
+            currentIndex--;
         }
     }
 

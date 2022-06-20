@@ -212,27 +212,6 @@ public class DoublyLinkedList<T> implements List<T> {
         return currentNode;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("[");
-
-        Node<T> currentNode = head;
-
-        while (currentNode != null) {
-            stringBuilder.append(currentNode.data);
-
-            if (currentNode != tail) {
-                stringBuilder.append(", ");
-            }
-
-            currentNode = currentNode.next;
-        }
-
-        stringBuilder.append("]");
-
-        return stringBuilder.toString();
-    }
-
     private class DoublyLinkedListIterator implements Iterator<T> {
         private Node<T> currentNode;
         private int currentIndex;

@@ -154,8 +154,6 @@ public class DoublyLinkedListTest {
             assertThat(iterator.next()).isEqualTo(expectedElement);
             iterator.remove();
 
-            System.out.println(doublyLinkedList);
-
             assertThat(doublyLinkedList.contains(expectedElement)).isFalse();
             assertThat(doublyLinkedList.indexOf(expectedElement)).isEqualTo(-1);
         }
@@ -948,6 +946,22 @@ public class DoublyLinkedListTest {
             assertThat(doublyLinkedList.getSize()).isEqualTo(expectedSize);
             assertThat(doublyLinkedList.contains(expectedElement)).isFalse();
             assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedList.get(beginIndex));
+        }
+
+        @Test
+        void doublyLinkedList_listIteratorRemoveAtIndex_withoutCallingNext_throwsNoSuchElementException() {
+            List<Integer> doublyLinkedList = new DoublyLinkedList<>();
+
+            int beginIndex = 0;
+            int expectedSize = 32;
+
+            for (int i = 0; i < expectedSize; i++) {
+                doublyLinkedList.add(i * i);
+            }
+
+            Iterator<Integer> iterator = doublyLinkedList.listIterator(beginIndex);
+
+            assertThrows(NoSuchElementException.class, iterator::remove);
         }
 
         @Test
