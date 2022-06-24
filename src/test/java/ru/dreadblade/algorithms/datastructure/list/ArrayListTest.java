@@ -92,7 +92,14 @@ public class ArrayListTest {
             assertThat(arrayList.get(i)).isEqualTo(expectedElement);
         }
 
-        int expectedCapacity = 48;
+        int expectedCapacity = 32;
+
+        assertThat(arrayList.getCapacity()).isEqualTo(expectedCapacity);
+
+        arrayList.add(32 * 32);
+
+        expectedSize = 33;
+        expectedCapacity = 48;
 
         assertThat(arrayList.getCapacity()).isEqualTo(expectedCapacity);
 
