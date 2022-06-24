@@ -40,7 +40,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void add(T element) {
-        if (size + 1 == data.length) {
+        if (size == data.length) {
             changeCapacity(data.length + CAPACITY);
         }
 
@@ -54,7 +54,7 @@ public class ArrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException(MessageUtils.getIndexOutOfBoundsExceptionMessage(index, size));
         }
 
-        if (size + 1 == data.length) {
+        if (size == data.length) {
             changeCapacity(data.length + CAPACITY);
         }
 

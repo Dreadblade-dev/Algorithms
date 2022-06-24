@@ -8,11 +8,11 @@ import ru.dreadblade.algorithms.datastructure.util.NoSuchElementException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DisplayName("ArrayList based stack testing")
-public class ArrayListStackTest {
+@DisplayName("Array based stack testing")
+public class ArrayStackTest {
     @Test
-    void arrayListStack_createsEmpty_isCorrect() {
-        Stack<Integer> stack = new ArrayListStack<>();
+    void arrayStack_createsEmpty_isCorrect() {
+        Stack<Integer> stack = new ArrayStack<>();
 
         int expectedSize = 0;
 
@@ -21,10 +21,10 @@ public class ArrayListStackTest {
     }
 
     @Test
-    void arrayListStack_createsEmpty_withSpecifiedCapacity_isCorrect() {
+    void arrayStack_createsEmpty_withSpecifiedCapacity_isCorrect() {
         int expectedCapacity = 1024;
 
-        ArrayListStack<Integer> stack = new ArrayListStack<>(expectedCapacity);
+        ArrayStack<Integer> stack = new ArrayStack<>(expectedCapacity);
 
         int expectedSize = 0;
 
@@ -34,8 +34,8 @@ public class ArrayListStackTest {
     }
 
     @Test
-    void arrayListStack_clear_isCorrect() {
-        Stack<Integer> stack = new ArrayListStack<>();
+    void arrayStack_clear_isCorrect() {
+        Stack<Integer> stack = new ArrayStack<>();
 
         int expectedSize = 32;
 
@@ -55,8 +55,8 @@ public class ArrayListStackTest {
     }
 
     @Test
-    void arrayListStack_push_isCorrect() {
-        Stack<Integer> stack = new ArrayListStack<>();
+    void arrayStack_push_isCorrect() {
+        Stack<Integer> stack = new ArrayStack<>();
 
         int expectedSize = 32;
 
@@ -73,11 +73,11 @@ public class ArrayListStackTest {
     }
 
     @Test
-    void arrayListStack_capacityChange_isCorrect() {
+    void arrayStack_capacityChange_isCorrect() {
         final int CAPACITY_VALUE = 16;
         int expectedCapacity = 0;
 
-        ArrayListStack<Integer> stack = new ArrayListStack<>(expectedCapacity);
+        ArrayStack<Integer> stack = new ArrayStack<>(expectedCapacity);
 
         assertThat(stack.getCapacity()).isEqualTo(expectedCapacity);
 
@@ -109,8 +109,8 @@ public class ArrayListStackTest {
     @Nested
     class popTests {
         @Test
-        void arrayListStack_pop_isCorrect() {
-            Stack<Integer> stack = new ArrayListStack<>();
+        void arrayStack_pop_isCorrect() {
+            Stack<Integer> stack = new ArrayStack<>();
 
             int expectedSize = 32;
 
@@ -129,8 +129,8 @@ public class ArrayListStackTest {
         }
 
         @Test
-        void arrayListStack_popOnEmptyStack_throwsNoSuchElementException() {
-            Stack<Integer> stack = new ArrayListStack<>();
+        void arrayStack_popOnEmptyStack_throwsNoSuchElementException() {
+            Stack<Integer> stack = new ArrayStack<>();
 
             assertThrows(NoSuchElementException.class, stack::pop);
         }
@@ -140,8 +140,8 @@ public class ArrayListStackTest {
     @Nested
     class peekTests {
         @Test
-        void arrayListStack_peek_isCorrect() {
-            Stack<Integer> stack = new ArrayListStack<>();
+        void arrayStack_peek_isCorrect() {
+            Stack<Integer> stack = new ArrayStack<>();
 
             int expectedSize = 32;
 
@@ -157,8 +157,8 @@ public class ArrayListStackTest {
         }
 
         @Test
-        void arrayListStack_popOnEmptyStack_throwsNoSuchElementException() {
-            Stack<Integer> stack = new ArrayListStack<>();
+        void arrayStack_popOnEmptyStack_throwsNoSuchElementException() {
+            Stack<Integer> stack = new ArrayStack<>();
 
             assertThrows(NoSuchElementException.class, stack::peek);
         }

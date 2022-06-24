@@ -10,9 +10,17 @@ public class ArrayListStack<T> implements Stack<T> {
         list = new ArrayList<>();
     }
 
+    public ArrayListStack(int capacity) {
+        list = new ArrayList<>(capacity);
+    }
+
     @Override
     public int getSize() {
         return list.getSize();
+    }
+
+    public int getCapacity() {
+        return list.getCapacity();
     }
 
     @Override
